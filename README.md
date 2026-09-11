@@ -46,3 +46,23 @@ ssh-ed25519 AAAA... user@host
 | `1` | Regex file is valid, but `TEST_COMMAND` or `SSH_ORIGINAL_COMMAND` did not match any pattern. |
 | `2` | Invalid command line. |
 | `3` | File, allocation, regex compilation, read, or exec error. |
+
+## Building
+
+This project uses CMake.
+
+```sh
+# Clone or unpack the source, then:
+mkdir build && cd build
+cmake ..
+make
+sudo make install
+```
+
+This produces and installs the `SSHWarden` binary (typically to `/usr/local/bin/SSHWarden`).
+
+### Requirements
+
+- A C compiler (e.g., `cc` or `gcc`)
+- CMake 3.10 or newer
+- POSIX environment with `getline()`, `regcomp()`, and related functions (standard on FreeBSD, Linux, macOS)
