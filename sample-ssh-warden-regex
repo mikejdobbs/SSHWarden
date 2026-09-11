@@ -1,0 +1,32 @@
+# Allow zfs receive into a specific dataset, no special options.
+# Example:
+#   /usr/sbin/zfs receive tank/backup/daily
+^/usr/sbin/zfs receive tank/backup/daily$
+
+# Allow zfs recv (short form) into the same dataset.
+^/usr/sbin/zfs recv tank/backup/daily$
+
+# Allow zfs receive with -F (rollback) and -u (do not mount) into a known dataset.
+# Example:
+#   /usr/sbin/zfs receive -F -u tank/backup/daily
+^/usr/sbin/zfs recv(ieve)? -[Fuv]+$ tank/backup/daily$
+
+# Allow zfs receive with an explicit -o canmount=off and -o mountpoint=none
+# into a specific dataset.  This is useful for receive-into-place workflows.
+# Example:
+#   /usr/sbin/zfs receive -o canmount=off -o mountpoint=none tank/backup/daily
+^/usr/sbin/zfs recv(ieve)? (-o [a-zA-Z0-9_.]+=[a-zA-Z0-9_.:/-]+ )+tank/backup/daily$
+
+# Allow zfs receive from a specific raw file or device into a dataset.
+# Example:
+#   /usr/sbin/zfs receive tank/backup/daily < /mnt/source/backup.zfs
+# Note: redirection is handled by the shell, so the regex must allow the
+# literal "<" and path if you expect the client to use it.  Because this
+# introduces shell metacharacters, prefer a wrapper script instead.
+# If you must allow it, anchor strictly:
+^/usr/sbin/zfs recv(ieve)? tank/backup/daily < /mnt/source/[a-zA-Z0-9_.-]+$
+
+# Allow zfs receive with a specific -d destination prefix (recursive).
+# Example:
+#   /usr/sbin/zfs receive -d tank/backup
+^/usr/sbin/zfs recv(ieve)? -d tank/backup(/[a-zA-Z0-9_.-]+)*$
