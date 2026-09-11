@@ -1,13 +1,13 @@
-# SSHWarden
+# SSHSlapper
 
-`SSHWarden` is an `sshd(8)` forced-command wrapper that authorizes requested SSH commands against a file of POSIX extended regular expressions.
+`SSHSlapper` is an `sshd(8)` forced-command wrapper that authorizes requested SSH commands against a file of POSIX extended regular expressions.
 
 ## Usage
 
 ### Validate regex file only
 
 ```sh
-SSHWarden REGEX_FILE
+SSHSlapper REGEX_FILE
 ```
 
 - Validates `REGEX_FILE` when `SSH_ORIGINAL_COMMAND` is unset.
@@ -16,7 +16,7 @@ SSHWarden REGEX_FILE
 ### Test a command locally
 
 ```sh
-SSHWarden REGEX_FILE TEST_COMMAND
+SSHSlapper REGEX_FILE TEST_COMMAND
 ```
 
 - Validates `REGEX_FILE` and tests `TEST_COMMAND` without executing it.
@@ -26,7 +26,7 @@ SSHWarden REGEX_FILE TEST_COMMAND
 Example entry in `~/.ssh/authorized_keys`:
 
 ```text
-command="/usr/local/bin/SSHWarden /etc/ssh/allowed_commands.regex",\
+command="/usr/local/bin/SSHSlapper /etc/ssh/allowed_commands.regex",\
 no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty \
 ssh-ed25519 AAAA... user@host
 ```
@@ -59,7 +59,7 @@ make
 sudo make install
 ```
 
-This produces and installs the `SSHWarden` binary (typically to `/usr/local/bin/SSHWarden`).
+This produces and installs the `SSHSlapper` binary (typically to `/usr/local/bin/SSHSlapper`).
 
 ### Requirements
 
